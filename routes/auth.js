@@ -30,8 +30,8 @@ const generateToken = (user) => {
       firstName: user.firstName,
       lastName: user.lastName,
     },
-    secretKey,
-    { expiresIn: "5m" }
+    secretKey
+    // { expiresIn: "7d" }
   );
 };
 

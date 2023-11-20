@@ -6,6 +6,8 @@ const cors = require("cors");
 
 const meals = require("./routes/meals");
 
+const favoriteMeals = require("./routes/favorites");
+
 app.use(cors());
 
 app.use(express.json());
@@ -25,6 +27,7 @@ app.get("/api/user/profile", verifyToken, (req, res) => {
 
 app.use("/api/meals", meals);
 app.use("/api/users", authRoutes);
+app.use("/api/favorites", favoriteMeals);
 
 require("dotenv").config();
 

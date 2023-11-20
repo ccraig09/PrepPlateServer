@@ -1,17 +1,17 @@
 const express = require("express");
 const { check, validationResult } = require("express-validator");
 
-const Meal = require("../models/Meal");
+const Favorite = require("../models/Favorite");
 
 const router = express.Router();
 
-const validate = [
-  [
-    check("title")
-      .isLength({ min: 3, max: 50 })
-      .withMessage("Title should be between 3 to 50 characters"),
-  ],
-];
+// const validate = [
+//   [
+//     check("title")
+//       .isLength({ min: 3, max: 50 })
+//       .withMessage("Title should be between 3 to 50 characters"),
+//   ],
+// ];
 
 router.post("/", (req, res) => {
   const errors = validationResult(req);
@@ -20,20 +20,18 @@ router.post("/", (req, res) => {
     return res.status(422).send({ errors: errors.array() });
   }
 
-  const meal = new Meal({
+  const favoriteMeal = new Favorite({
     title: req.body.title,
-    timeOfDay: req.body.timeOfDay,
     imageUrl: req.body.imageUrl,
-    date: req.body.date,
     mealData: req.body.mealData,
     mealId: req.body.mealId,
   });
 
-  meal
+  favoriteMeal
     .save()
     .then((result) => {
       res.send({
-        message: "Meal data created successfully",
+        message: "Favorite meal data created successfully",
         data: result,
       });
     })
@@ -41,7 +39,7 @@ router.post("/", (req, res) => {
 });
 
 router.get("/", (req, res) => {
-  Meal.find()
+  Favorite.find()
     .then((meal) => {
       res.send(meal);
     })
